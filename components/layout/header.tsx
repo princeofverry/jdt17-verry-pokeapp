@@ -57,9 +57,7 @@ export default function Header() {
                   isActive ? "text-gray-900 font-semibold" : "text-gray-600"
                 }`}
               >
-                <Icon
-                  className={`h-4 w-4 ${isActive ? "text-secondary" : ""}`}
-                />
+                <Icon className={`h-4 w-4 ${isActive ? "text-primary" : ""}`} />
                 {link.label}
               </Link>
             );

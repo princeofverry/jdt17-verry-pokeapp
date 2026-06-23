@@ -5,21 +5,54 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Sparkles, Ticket, CircleDot, XCircle, CheckCircle, ShieldAlert } from "lucide-react";
+import {
+  Sparkles,
+  Ticket,
+  CircleDot,
+  XCircle,
+  CheckCircle,
+  ShieldAlert,
+} from "lucide-react";
 import { useGacha } from "@/hooks/useGacha";
 import { useCollection } from "@/hooks/useCollection";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { formatPokemonId, capitalize, getTypeStyles, getPokemonImage } from "./PokemonCard";
+import {
+  formatPokemonId,
+  capitalize,
+  getTypeStyles,
+  getPokemonImage,
+} from "./PokemonCard";
 
 export default function PokemonGachaView() {
-  const { rollPokemon, rolledPokemon, isLoading: isQueryLoading, error, remainingTickets, clearResult } = useGacha();
-  const { attemptCatch, savePokemon, isNicknameDuplicate, checkAndResetTickets } = useCollection();
+  const {
+    rollPokemon,
+    rolledPokemon,
+    isLoading: isQueryLoading,
+    error,
+    remainingTickets,
+    clearResult,
+  } = useGacha();
+  const {
+    attemptCatch,
+    savePokemon,
+    isNicknameDuplicate,
+    checkAndResetTickets,
+  } = useCollection();
 
-  const [gameState, setGameState] = useState<"idle" | "rolling" | "revealed">("idle");
+  const [gameState, setGameState] = useState<"idle" | "rolling" | "revealed">(
+    "idle",
+  );
   const [isCatching, setIsCatching] = useState(false);
   const [showNicknameModal, setShowNicknameModal] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -36,10 +69,9 @@ export default function PokemonGachaView() {
       .trim()
       .min(1, "Nickname is required")
       .max(20, "Nickname must be 20 characters or less")
-      .refine(
-        (val) => !isNicknameDuplicate(val),
-        { message: "This nickname is already in your collection!" }
-      ),
+      .refine((val) => !isNicknameDuplicate(val), {
+        message: "This nickname is already in your collection!",
+      }),
   });
 
   type NicknameFormValues = z.infer<typeof nicknameSchema>;
@@ -56,12 +88,14 @@ export default function PokemonGachaView() {
 
   const handleRollClick = async () => {
     if (remainingTickets <= 0) {
-      toast.error("You don't have any tickets left for today! Tickets reset daily.");
+      toast.error(
+        "You don't have any tickets left for today! Tickets reset daily.",
+      );
       return;
     }
 
     setGameState("rolling");
-    
+
     // Simulate spin/roll timer for aesthetic feel
     const [result] = await Promise.all([
       rollPokemon(),
@@ -133,11 +167,12 @@ export default function PokemonGachaView() {
       {/* Page Title */}
       <div className="text-center mb-8">
         <h1 className="font-heading text-2xl font-black text-gray-900 tracking-tight flex items-center justify-center gap-1.5">
-          <Ticket className="h-6 w-6 text-secondary" />
+          <Ticket className="h-6 w-6 text-primary" />
           Daily Gacha Roll
         </h1>
         <p className="mt-2 text-sm text-gray-600 max-w-xs mx-auto">
-          Use one of your 5 daily tickets to roll a random Pokemon and try to catch it!
+          Use one of your 5 daily tickets to roll a random Pokemon and try to
+          catch it!
         </p>
       </div>
 
@@ -148,11 +183,18 @@ export default function PokemonGachaView() {
             <Ticket className="h-5 w-5 text-gray-950" />
           </div>
           <div>
-            <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Gacha Tickets</h4>
-            <p className="text-sm font-extrabold text-gray-900">{remainingTickets} / 5 Remaining Today</p>
+            <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+              Gacha Tickets
+            </h4>
+            <p className="text-sm font-extrabold text-gray-900">
+              {remainingTickets} / 5 Remaining Today
+            </p>
           </div>
         </div>
-        <Badge variant={remainingTickets > 0 ? "default" : "destructive"} className="text-[10px] font-bold py-0.5 px-2 rounded-md">
+        <Badge
+          variant={remainingTickets > 0 ? "default" : "destructive"}
+          className="text-[10px] font-bold py-0.5 px-2 rounded-md"
+        >
           {remainingTickets > 0 ? "Active" : "No Tickets"}
         </Badge>
       </div>
@@ -170,7 +212,9 @@ export default function PokemonGachaView() {
             <div className="relative flex h-28 w-28 items-center justify-center rounded-full bg-gray-50 border-4 border-gray-950 shadow-inner overflow-hidden mb-6">
               <div className="absolute top-0 left-0 w-full h-1/2 bg-red-500 border-b-4 border-gray-950" />
               <div className="z-10 h-8 w-8 rounded-full bg-white border-4 border-gray-950 flex items-center justify-center shadow-xs">
-                <CircleDot className={`h-4 w-4 text-gray-400 ${gameState === "rolling" ? "animate-spin text-secondary" : ""}`} />
+                <CircleDot
+                  className={`h-4 w-4 text-gray-400 ${gameState === "rolling" ? "animate-spin text-secondary" : ""}`}
+                />
               </div>
             </div>
 
@@ -179,14 +223,18 @@ export default function PokemonGachaView() {
                 <h3 className="text-sm font-black text-secondary tracking-wider uppercase animate-pulse">
                   Rolling...
                 </h3>
-                <p className="text-[10px] text-gray-400">Summoning a wild Pokemon</p>
+                <p className="text-[10px] text-gray-400">
+                  Summoning a wild Pokemon
+                </p>
               </div>
             ) : (
               <div className="space-y-1">
                 <h3 className="text-sm font-black text-gray-900 tracking-wider uppercase">
                   Ready to Roll
                 </h3>
-                <p className="text-[10px] text-gray-400">Press Roll Pokemon below</p>
+                <p className="text-[10px] text-gray-400">
+                  Press Roll Pokemon below
+                </p>
               </div>
             )}
           </div>
@@ -196,7 +244,10 @@ export default function PokemonGachaView() {
             {rolledPokemon ? (
               <>
                 <div className="w-full flex justify-between items-center select-none">
-                  <Badge variant="flat" className="text-[10px] font-bold text-gray-500 font-mono py-0 px-2 rounded-md">
+                  <Badge
+                    variant="flat"
+                    className="text-[10px] font-bold text-gray-500 font-mono py-0 px-2 rounded-md"
+                  >
                     {formatPokemonId(rolledPokemon.id)}
                   </Badge>
                   <div className="flex gap-1">
@@ -227,7 +278,9 @@ export default function PokemonGachaView() {
                   <h3 className="font-heading text-lg font-black text-gray-900 tracking-tight">
                     {capitalize(rolledPokemon.name)}
                   </h3>
-                  <p className="text-[10px] text-gray-400 mt-0.5">A wild Pokemon appeared!</p>
+                  <p className="text-[10px] text-gray-400 mt-0.5">
+                    A wild Pokemon appeared!
+                  </p>
 
                   <div className="mt-4 flex gap-2 w-full justify-center">
                     <Button
@@ -252,7 +305,9 @@ export default function PokemonGachaView() {
             ) : (
               <div className="flex-1 flex flex-col items-center justify-center text-center">
                 <ShieldAlert className="h-8 w-8 text-red-500 mb-2" />
-                <p className="text-xs text-gray-500 font-medium">Error loading data.</p>
+                <p className="text-xs text-gray-500 font-medium">
+                  Error loading data.
+                </p>
               </div>
             )}
           </div>
@@ -278,27 +333,44 @@ export default function PokemonGachaView() {
               Pokemon Caught!
             </DialogTitle>
             <DialogDescription className="text-gray-600 text-sm">
-              Congratulations! You caught a wild <span className="font-bold text-gray-900">{rolledPokemon ? capitalize(rolledPokemon.name) : ""}</span>. Please assign a unique nickname to add it to your Pokedex collection.
+              Congratulations! You caught a wild{" "}
+              <span className="font-bold text-gray-900">
+                {rolledPokemon ? capitalize(rolledPokemon.name) : ""}
+              </span>
+              . Please assign a unique nickname to add it to your Pokedex
+              collection.
             </DialogDescription>
           </DialogHeader>
 
-          <form onSubmit={handleSubmit(onSaveNickname)} className="space-y-4 py-2">
+          <form
+            onSubmit={handleSubmit(onSaveNickname)}
+            className="space-y-4 py-2"
+          >
             <div className="space-y-1">
-              <label htmlFor="nickname" className="text-xs font-bold text-gray-700">
+              <label
+                htmlFor="nickname"
+                className="text-xs font-bold text-gray-700"
+              >
                 Nickname
               </label>
               <Input
                 id="nickname"
                 type="text"
-                placeholder={rolledPokemon ? `My ${capitalize(rolledPokemon.name)}` : ""}
+                placeholder={
+                  rolledPokemon ? `My ${capitalize(rolledPokemon.name)}` : ""
+                }
                 {...register("nickname")}
                 className={`rounded-lg border bg-white ${
-                  errors.nickname ? "border-red-500 focus-visible:ring-red-400" : "border-gray-200 focus-visible:ring-secondary focus-visible:border-secondary"
+                  errors.nickname
+                    ? "border-red-500 focus-visible:ring-red-400"
+                    : "border-gray-200 focus-visible:ring-secondary focus-visible:border-secondary"
                 }`}
                 autoFocus
               />
               {errors.nickname && (
-                <p className="text-xs font-semibold text-red-500">{errors.nickname.message}</p>
+                <p className="text-xs font-semibold text-red-500">
+                  {errors.nickname.message}
+                </p>
               )}
             </div>
 

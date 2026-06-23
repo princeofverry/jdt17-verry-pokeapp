@@ -25,7 +25,7 @@ export default function Footer() {
               href={tab.href}
               className={`flex flex-col items-center justify-center gap-0.5 px-3 py-1 text-[10px] font-medium transition-colors ${
                 isActive
-                  ? "text-secondary font-bold"
+                  ? "text-black font-bold"
                   : "text-gray-600 hover:text-gray-900"
               }`}
             >
@@ -33,7 +33,7 @@ export default function Footer() {
                 className={`p-1 rounded-full transition-colors ${isActive ? "bg-secondary/10" : ""}`}
               >
                 <Icon
-                  className={`h-5 w-5 ${isActive ? "text-secondary" : "text-gray-600"}`}
+                  className={`h-5 w-5 ${isActive ? "text-primary" : "text-gray-600"}`}
                 />
               </div>
               <span>{tab.label}</span>

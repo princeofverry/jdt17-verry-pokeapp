@@ -3,21 +3,37 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Compass, Trophy, Trash2, ExternalLink, ShieldAlert, CircleDot } from "lucide-react";
+import {
+  Compass,
+  Trophy,
+  Trash2,
+  ExternalLink,
+  ShieldAlert,
+  CircleDot,
+} from "lucide-react";
 import { useCollection } from "@/hooks/useCollection";
 import { CaughtPokemon } from "@/types/pokemon";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { capitalize, getTypeStyles } from "./PokemonCard";
 
 export default function PokemonCollectionView() {
   const { collection, releasePokemon } = useCollection();
   const [mounted, setMounted] = useState(false);
-  
-  const [selectedPokemon, setSelectedPokemon] = useState<CaughtPokemon | null>(null);
+
+  const [selectedPokemon, setSelectedPokemon] = useState<CaughtPokemon | null>(
+    null,
+  );
   const [showConfirmRelease, setShowConfirmRelease] = useState(false);
 
   useEffect(() => {
@@ -33,7 +49,9 @@ export default function PokemonCollectionView() {
     if (!selectedPokemon) return;
     releasePokemon(selectedPokemon.nickname);
     setShowConfirmRelease(false);
-    toast.success(`${selectedPokemon.nickname} has been released into the wild.`);
+    toast.success(
+      `${selectedPokemon.nickname} has been released into the wild.`,
+    );
     setSelectedPokemon(null);
   };
 
@@ -63,18 +81,22 @@ export default function PokemonCollectionView() {
       {/* Title Header */}
       <div className="mb-8 text-center sm:text-left select-none">
         <h1 className="font-heading text-2xl font-black tracking-tight text-gray-900 sm:text-3xl flex items-center justify-center sm:justify-start gap-2">
-          <Trophy className="h-7 w-7 text-secondary" />
+          <Trophy className="h-7 w-7 text-primary" />
           My Pokemon Collection
         </h1>
         <p className="mt-2 text-sm text-gray-600">
-          Manage your caught team, view stats, or release Pokemon back into the wild.
+          Manage your caught team, view stats, or release Pokemon back into the
+          wild.
         </p>
       </div>
 
       {collection.length > 0 ? (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 flex-1 items-start">
           {collection.map((pokemon) => (
-            <Card key={`${pokemon.id}-${pokemon.nickname}`} className="group overflow-hidden border border-gray-100 bg-white hover:-translate-y-0.5 hover:shadow-xs transition-all duration-200">
+            <Card
+              key={`${pokemon.id}-${pokemon.nickname}`}
+              className="group overflow-hidden border border-gray-100 bg-white hover:-translate-y-0.5 hover:shadow-xs transition-all duration-200"
+            >
               <CardContent className="flex flex-col items-center p-4">
                 {/* Artwork Area */}
                 <div className="relative flex aspect-square w-full items-center justify-center rounded-lg bg-gray-50 p-4 transition-colors group-hover:bg-gray-100/70">
@@ -113,7 +135,7 @@ export default function PokemonCollectionView() {
                         key={type}
                         variant="outline"
                         className={`text-[9px] font-bold py-0 px-1.5 rounded-sm ${getTypeStyles(
-                          type
+                          type,
                         )}`}
                       >
                         {capitalize(type)}
@@ -154,13 +176,19 @@ export default function PokemonCollectionView() {
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-50 text-gray-400 mb-4 select-none">
             <Trophy className="h-6 w-6 animate-pulse" />
           </div>
-          <h3 className="font-heading text-base font-bold text-gray-900">Your collection is empty</h3>
+          <h3 className="font-heading text-base font-bold text-gray-900">
+            Your collection is empty
+          </h3>
           <p className="mt-1 text-sm text-gray-600 max-w-xs">
-            You haven&rsquo;t caught any Pokemon yet. Go to Pokedex or Gacha Roll to expand your collection!
+            You haven&rsquo;t caught any Pokemon yet. Go to Pokedex or Gacha
+            Roll to expand your collection!
           </p>
           <div className="mt-6 flex gap-3">
             <Link href="/">
-              <Button variant="outline" className="px-5 font-bold h-9 cursor-pointer">
+              <Button
+                variant="outline"
+                className="px-5 font-bold h-9 cursor-pointer"
+              >
                 <Compass className="h-4 w-4 mr-1 text-gray-600" />
                 Go to Pokedex
               </Button>
@@ -184,7 +212,15 @@ export default function PokemonCollectionView() {
               Release Pokemon?
             </DialogTitle>
             <DialogDescription className="text-gray-600 text-sm">
-              Are you sure you want to release <span className="font-bold text-gray-900">{selectedPokemon?.nickname}</span> the <span className="font-bold text-gray-900">{selectedPokemon ? capitalize(selectedPokemon.name) : ""}</span> back into the wild? This action cannot be undone.
+              Are you sure you want to release{" "}
+              <span className="font-bold text-gray-900">
+                {selectedPokemon?.nickname}
+              </span>{" "}
+              the{" "}
+              <span className="font-bold text-gray-900">
+                {selectedPokemon ? capitalize(selectedPokemon.name) : ""}
+              </span>{" "}
+              back into the wild? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
 
