@@ -29,23 +29,17 @@ export default function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-gray-100 bg-white/95 backdrop-blur-xs">
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6">
+    <header className="sticky top-0 z-40 w-full border-b-4 border-black bg-white select-none">
+      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4 sm:px-6">
         <Link
           href="/"
-          className="flex items-center gap-2 font-bold tracking-tight"
+          className="flex items-center gap-2 font-black tracking-tight"
         >
-          {/* <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-xs">
-            <Dna className="h-5 w-5 animate-spin-slow text-gray-900" />
-          </div>
-          <span className="text-base font-semibold text-gray-900 sm:text-lg">
-            Poke<span className="text-secondary font-extrabold font-mono">Explorer</span>
-          </span> */}
-          <Image src={"pokemon.svg"} alt="logo" height={96} width={96} />
+          <Image src="/pokemon.svg" alt="logo" height={80} width={100} className="object-contain" priority />
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-6 sm:flex">
+        <nav className="hidden items-center gap-3 sm:flex">
           {navLinks.map((link) => {
             const Icon = link.icon;
             const isActive = pathname === link.href;
@@ -53,12 +47,14 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center gap-1.5 text-sm font-medium transition-colors hover:text-gray-900 ${
-                  isActive ? "text-gray-900 font-semibold" : "text-gray-600"
+                className={`flex items-center gap-1.5 text-sm font-extrabold transition-all px-3 py-1 rounded-lg border-2 ${
+                  isActive
+                    ? "bg-[#FFD93D] border-black text-black shadow-[2px_2px_0px_0px_#000]"
+                    : "border-transparent text-black hover:bg-black/5"
                 }`}
               >
                 <Icon
-                  className={`h-4 w-4 ${isActive ? "text-secondary" : ""}`}
+                  className="h-4 w-4"
                 />
                 {link.label}
               </Link>
@@ -69,15 +65,18 @@ export default function Header() {
         {/* Gacha Ticket Counter */}
         <div className="flex items-center gap-2">
           {mounted ? (
-            <Badge
-              variant={remainingTickets > 0 ? "default" : "flat"}
-              className="flex items-center gap-1 py-1 px-2.5 font-bold rounded-lg border border-primary/20 text-gray-900 bg-primary select-none animate-fade-in"
+            <div
+              className={`flex items-center gap-1.5 py-1 px-3 font-black rounded-lg border-2 border-black select-none shadow-[2px_2px_0px_0px_#000] transition-all text-xs ${
+                remainingTickets > 0 
+                  ? "bg-[#FFD93D] text-black" 
+                  : "bg-[#FF4D4D] text-white"
+              }`}
             >
-              <Ticket className="h-3.5 w-3.5 text-gray-900" />
-              <span className="text-xs">{remainingTickets} Rolls Left</span>
-            </Badge>
+              <Ticket className="h-4 w-4" />
+              <span>{remainingTickets} Rolls Left</span>
+            </div>
           ) : (
-            <Skeleton className="h-6 w-24 rounded-lg" />
+            <Skeleton className="h-7 w-24 rounded-lg" />
           )}
         </div>
       </div>
