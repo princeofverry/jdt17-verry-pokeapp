@@ -24,27 +24,50 @@ export function capitalize(str: string): string {
 
 export const getTypeStyles = (type: string) => {
   const styles: Record<string, string> = {
-    normal: "bg-gray-100 text-gray-800 border-gray-200/40",
-    fire: "bg-orange-50 text-orange-700 border-orange-200/40",
-    water: "bg-blue-50 text-blue-700 border-blue-200/40",
-    electric: "bg-amber-50 text-amber-700 border-amber-200/40",
-    grass: "bg-emerald-50 text-emerald-700 border-emerald-200/40",
-    ice: "bg-cyan-50 text-cyan-700 border-cyan-200/40",
-    fighting: "bg-red-50 text-red-700 border-red-200/40",
-    poison: "bg-purple-50 text-purple-700 border-purple-200/40",
-    ground: "bg-yellow-50 text-yellow-700 border-yellow-200/40",
-    flying: "bg-indigo-50 text-indigo-700 border-indigo-200/40",
-    psychic: "bg-pink-50 text-pink-700 border-pink-200/40",
-    bug: "bg-lime-50 text-lime-700 border-lime-200/40",
-    rock: "bg-stone-50 text-stone-700 border-stone-200/40",
-    ghost: "bg-violet-50 text-violet-700 border-violet-200/40",
-    dragon: "bg-indigo-100 text-indigo-800 border-indigo-300/40",
-    steel: "bg-slate-100 text-slate-700 border-slate-200/40",
-    fairy: "bg-rose-50 text-rose-700 border-rose-200/40",
+    normal: "bg-[#EAEAEA] text-black border-black",
+    fire: "bg-[#FF8B8B] text-black border-black",
+    water: "bg-[#85D3FF] text-black border-black",
+    electric: "bg-[#FFE485] text-black border-black",
+    grass: "bg-[#8CEB9C] text-black border-black",
+    ice: "bg-[#A1EBEC] text-black border-black",
+    fighting: "bg-[#FF7F7F] text-black border-black",
+    poison: "bg-[#D39CFC] text-black border-black",
+    ground: "bg-[#F6D38E] text-black border-black",
+    flying: "bg-[#C3B6FF] text-black border-black",
+    psychic: "bg-[#FFBBE2] text-black border-black",
+    bug: "bg-[#C8E285] text-black border-black",
+    rock: "bg-[#D2C4A2] text-black border-black",
+    ghost: "bg-[#A485E2] text-black border-black",
+    dragon: "bg-[#7F7FFF] text-white border-black",
+    steel: "bg-[#CFD9DC] text-black border-black",
+    fairy: "bg-[#FFC2DA] text-black border-black",
   };
   return (
-    styles[type.toLowerCase()] || "bg-gray-100 text-gray-700 border-gray-200"
+    styles[type.toLowerCase()] || "bg-white text-black border-black"
   );
+};
+
+export const getTypeBorderColor = (type: string) => {
+  const styles: Record<string, string> = {
+    normal: "border-[#A8A77A]",
+    fire: "border-[#EE8130]",
+    water: "border-[#6390F0]",
+    electric: "border-[#F7D02C]",
+    grass: "border-[#7AC74C]",
+    ice: "border-[#96D9D6]",
+    fighting: "border-[#C22E28]",
+    poison: "border-[#A33EA1]",
+    ground: "border-[#E2BF65]",
+    flying: "border-[#A98FF3]",
+    psychic: "border-[#F95587]",
+    bug: "border-[#A6B91A]",
+    rock: "border-[#B6A136]",
+    ghost: "border-[#735797]",
+    dragon: "border-[#6F35FC]",
+    steel: "border-[#B7B7CE]",
+    fairy: "border-[#D685AD]",
+  };
+  return styles[type.toLowerCase()] || "border-black";
 };
 
 export function getPokemonImage(pokemon: PokemonDetail): string {
@@ -61,30 +84,32 @@ export function getPokemonImage(pokemon: PokemonDetail): string {
 
 export default function PokemonCard({ pokemon }: PokemonCardProps) {
   const artwork = getPokemonImage(pokemon);
+  const primaryType = pokemon.types[0]?.type.name || "normal";
+  const borderColorClass = getTypeBorderColor(primaryType);
 
   return (
     <Link href={`/pokemon/${pokemon.id}`} className="group block outline-none">
-      <Card className="h-full overflow-hidden border border-gray-100 hover:-translate-y-0.5 hover:shadow-xs">
-        <CardContent className="flex flex-col items-center p-4">
-          <div className="relative flex aspect-square w-full items-center justify-center rounded-lg bg-gray-50 p-4 transition-colors group-hover:bg-gray-100/70">
+      <Card className={`h-full overflow-hidden border-4 bg-white shadow-[4px_4px_0px_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[7px_7px_0px_#000] transition-all duration-200 ${borderColorClass}`}>
+        <CardContent className="flex flex-col items-center p-0">
+          <div className="relative flex aspect-square w-full items-center justify-center bg-gray-100 p-4 border-b-3 border-black">
             {artwork && (
               <Image
                 src={artwork}
                 alt={pokemon.name}
-                width={140}
-                height={140}
-                className="object-contain transition-transform group-hover:scale-105 duration-300"
-                priority={pokemon.id <= 10} // Load first page items with priority
-                unoptimized // Keep images crisp without next server resize overhead for pokeapi svgs
+                width={110}
+                height={110}
+                className="object-contain transition-transform group-hover:scale-105 duration-200 select-none"
+                priority={pokemon.id <= 10}
+                unoptimized
               />
             )}
-            <span className="absolute top-2 right-2 text-[10px] font-bold font-mono text-gray-400 select-none">
+            <span className="absolute top-2 right-2 text-[9px] font-black font-mono text-black border-2 border-black bg-white px-1.5 py-0.5 rounded shadow-[1px_1px_0px_#000] select-none">
               {formatPokemonId(pokemon.id)}
             </span>
           </div>
 
-          <div className="mt-3 w-full text-center sm:text-left">
-            <h3 className="font-heading text-sm font-bold text-gray-900 group-hover:text-secondary transition-colors truncate">
+          <div className="p-3 w-full text-center sm:text-left bg-white">
+            <h3 className="font-heading text-sm font-black text-black group-hover:text-secondary transition-colors truncate">
               {capitalize(pokemon.name)}
             </h3>
 
@@ -93,7 +118,7 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
                 <Badge
                   key={t.slot}
                   variant="outline"
-                  className={`text-[10px] font-medium py-0 px-2 rounded-md ${getTypeStyles(
+                  className={`text-[9px] font-black py-0 px-2 rounded border-2 ${getTypeStyles(
                     t.type.name,
                   )}`}
                 >

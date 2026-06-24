@@ -136,9 +136,9 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
   };
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 sm:py-8 flex-1">
+    <div className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 sm:py-8 flex-1 select-none">
       {/* Back navigation */}
-      <Link href="/" className="inline-flex items-center gap-1.5 text-sm font-semibold text-gray-600 hover:text-gray-900 transition-colors mb-6 group">
+      <Link href="/" className="inline-flex items-center gap-1.5 text-sm font-extrabold text-black hover:underline mb-6 group">
         <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
         Back to Pokedex
       </Link>
@@ -146,33 +146,33 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
         {/* Left Card: Artwork & Primary details */}
         <div className="md:col-span-5 flex flex-col items-center">
-          <div className="relative flex aspect-square w-full items-center justify-center rounded-2xl bg-gray-50 border border-gray-100 p-8 shadow-xs">
+          <div className="relative flex aspect-square w-full items-center justify-center rounded-xl bg-white border-4 border-black p-8 shadow-[5px_5px_0px_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[7px_7px_0px_#000] transition-all">
             {artwork && (
               <Image
                 src={artwork}
                 alt={pokemon.name}
-                width={240}
-                height={240}
-                className="object-contain drop-shadow-md select-none"
+                width={220}
+                height={220}
+                className="object-contain select-none"
                 priority
                 unoptimized
               />
             )}
-            <span className="absolute top-4 right-4 text-xs font-black font-mono text-gray-400">
+            <span className="absolute top-4 right-4 text-xs font-black font-mono text-black border-2 border-black bg-white px-2 py-0.5 rounded shadow-[2px_2px_0px_#000]">
               {formatPokemonId(pokemon.id)}
             </span>
           </div>
 
-          <h1 className="mt-4 font-heading text-2xl font-black text-gray-900 tracking-tight text-center">
+          <h1 className="mt-5 font-heading text-3xl font-black text-black tracking-tight text-center uppercase">
             {capitalize(pokemon.name)}
           </h1>
 
-          <div className="mt-2 flex gap-1.5 justify-center">
+          <div className="mt-2.5 flex gap-1.5 justify-center">
             {pokemon.types.map((t) => (
               <Badge
                 key={t.slot}
                 variant="outline"
-                className={`text-xs py-0.5 px-3 rounded-lg font-bold border ${getTypeStyles(t.type.name)}`}
+                className={`text-xs py-0.5 px-3 rounded-lg font-black border-2 ${getTypeStyles(t.type.name)}`}
               >
                 {capitalize(t.type.name)}
               </Badge>
@@ -183,40 +183,40 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
           <Button
             onClick={handleCatchAction}
             disabled={isCatching}
-            className="mt-6 w-full py-5 rounded-xl font-bold bg-primary text-gray-900 hover:bg-primary/95 shadow-md flex items-center justify-center gap-2 cursor-pointer border border-primary/20"
+            className="mt-6 w-full py-6 rounded-xl font-black text-sm bg-primary text-black border-3 border-black shadow-[4px_4px_0px_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_#000] transition-all"
           >
-            <Sparkles className="h-4 w-4 text-gray-900 animate-pulse" />
-            {isCatching ? "Throwing Pokeball..." : `Catch ${capitalize(pokemon.name)}`}
+            <Sparkles className="h-4 w-4 text-black" />
+            {isCatching ? "THROWING POKEBALL..." : `CATCH ${pokemon.name.toUpperCase()}`}
           </Button>
         </div>
 
         {/* Right Info: Stats, Physical properties, Abilities & Moves */}
         <div className="md:col-span-7 flex flex-col gap-6">
           {/* Card 1: Physical properties */}
-          <div className="rounded-xl border border-gray-100 bg-white p-5">
-            <h2 className="font-heading text-sm font-black text-gray-900 tracking-wide uppercase mb-4 flex items-center gap-1.5">
-              <Award className="h-4 w-4 text-secondary" />
+          <div className="rounded-xl border-4 border-black bg-white p-5 shadow-[4px_4px_0px_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#000] transition-all">
+            <h2 className="font-heading text-sm font-black text-black tracking-wide uppercase mb-4 flex items-center gap-1.5">
+              <Award className="h-4 w-4 text-black" />
               Information
             </h2>
-            <div className="grid grid-cols-3 gap-4 text-center divide-x divide-gray-100">
+            <div className="grid grid-cols-3 gap-4 text-center divide-x-2 divide-black">
               <div className="flex flex-col items-center">
-                <Ruler className="h-4 w-4 text-gray-400 mb-1" />
-                <span className="text-xs text-gray-600">Height</span>
-                <span className="text-sm font-extrabold text-gray-900 mt-0.5 font-mono">
+                <Ruler className="h-4 w-4 text-black mb-1" />
+                <span className="text-[10px] font-black text-gray-500 uppercase">Height</span>
+                <span className="text-sm font-black text-black mt-0.5 font-mono">
                   {pokemon.height / 10} m
                 </span>
               </div>
-              <div className="flex flex-col items-center">
-                <Scale className="h-4 w-4 text-gray-400 mb-1" />
-                <span className="text-xs text-gray-600">Weight</span>
-                <span className="text-sm font-extrabold text-gray-900 mt-0.5 font-mono">
+              <div className="flex flex-col items-center pl-2">
+                <Scale className="h-4 w-4 text-black mb-1" />
+                <span className="text-[10px] font-black text-gray-500 uppercase">Weight</span>
+                <span className="text-sm font-black text-black mt-0.5 font-mono">
                   {pokemon.weight / 10} kg
                 </span>
               </div>
-              <div className="flex flex-col items-center">
-                <Sparkles className="h-4 w-4 text-gray-400 mb-1" />
-                <span className="text-xs text-gray-600">Base Exp</span>
-                <span className="text-sm font-extrabold text-gray-900 mt-0.5 font-mono">
+              <div className="flex flex-col items-center pl-2">
+                <Sparkles className="h-4 w-4 text-black mb-1" />
+                <span className="text-[10px] font-black text-gray-500 uppercase">Base Exp</span>
+                <span className="text-sm font-black text-black mt-0.5 font-mono">
                   {pokemon.base_experience || "N/A"}
                 </span>
               </div>
@@ -224,11 +224,11 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
           </div>
 
           {/* Card 2: Stats */}
-          <div className="rounded-xl border border-gray-100 bg-white p-5">
-            <h2 className="font-heading text-sm font-black text-gray-900 tracking-wide uppercase mb-4">
+          <div className="rounded-xl border-4 border-black bg-white p-5 shadow-[4px_4px_0px_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#000] transition-all">
+            <h2 className="font-heading text-sm font-black text-black tracking-wide uppercase mb-4">
               Base Stats
             </h2>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3.5">
               {pokemon.stats.map((s) => {
                 const label = statLabelMap[s.stat.name] || s.stat.name.toUpperCase();
                 const max = statMaxMap[s.stat.name] || 200;
@@ -236,15 +236,15 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
 
                 return (
                   <div key={s.stat.name} className="grid grid-cols-12 gap-2 items-center">
-                    <span className="col-span-3 text-[10px] font-black text-gray-500 tracking-wider">
+                    <span className="col-span-3 text-[10px] font-black text-black tracking-wider">
                       {label}
                     </span>
-                    <span className="col-span-1.5 text-xs font-bold text-gray-900 text-right font-mono pr-2">
+                    <span className="col-span-1.5 text-xs font-black text-black text-right font-mono pr-2">
                       {s.base_stat}
                     </span>
-                    <div className="col-span-7.5 h-2 w-full bg-gray-100 rounded-full overflow-hidden">
+                    <div className="col-span-7.5 h-4 w-full bg-white border-2 border-black rounded shadow-[1px_1px_0px_#000] overflow-hidden">
                       <div
-                        className="h-full bg-secondary transition-all duration-500 rounded-full"
+                        className="h-full bg-[#6BCB77] border-r-2 border-black transition-all duration-500"
                         style={{ width: `${percentage}%` }}
                       />
                     </div>
@@ -255,20 +255,20 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
           </div>
 
           {/* Card 3: Abilities */}
-          <div className="rounded-xl border border-gray-100 bg-white p-5">
-            <h2 className="font-heading text-sm font-black text-gray-900 tracking-wide uppercase mb-3">
+          <div className="rounded-xl border-4 border-black bg-white p-5 shadow-[4px_4px_0px_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#000] transition-all">
+            <h2 className="font-heading text-sm font-black text-black tracking-wide uppercase mb-3">
               Abilities
             </h2>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 pt-1">
               {pokemon.abilities.map((a) => (
                 <Badge
                   key={a.slot}
                   variant="outline"
-                  className="bg-gray-50 border-gray-150 text-gray-800 text-xs py-1 px-3 rounded-lg font-medium"
+                  className="bg-white border-2 border-black text-black text-xs py-1 px-3 rounded-lg font-black uppercase shadow-[2px_2px_0px_#000]"
                 >
                   {capitalize(a.ability.name)}
                   {a.is_hidden && (
-                    <span className="ml-1 text-[9px] text-gray-400 font-normal font-mono">(Hidden)</span>
+                    <span className="ml-1 text-[9px] font-bold text-gray-500 normal-case font-sans">(Hidden)</span>
                   )}
                 </Badge>
               ))}
@@ -276,17 +276,17 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
           </div>
 
           {/* Card 4: Moves (Max 10) */}
-          <div className="rounded-xl border border-gray-100 bg-white p-5">
-            <h2 className="font-heading text-sm font-black text-gray-900 tracking-wide uppercase mb-3">
+          <div className="rounded-xl border-4 border-black bg-white p-5 shadow-[4px_4px_0px_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#000] transition-all">
+            <h2 className="font-heading text-sm font-black text-black tracking-wide uppercase mb-3">
               Moves (Top 10)
             </h2>
             {pokemon.moves.length > 0 ? (
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-2 pt-1">
                 {pokemon.moves.slice(0, 10).map((m) => (
                   <Badge
                     key={m.move.name}
                     variant="outline"
-                    className="bg-white border-gray-100 hover:bg-gray-50/50 text-gray-700 text-xs py-1 px-2.5 rounded-lg font-mono font-normal"
+                    className="bg-white border-2 border-black text-black text-xs py-1 px-2.5 rounded-lg font-mono font-bold shadow-[2px_2px_0px_#000]"
                   >
                     {capitalize(m.move.name.replace("-", " "))}
                   </Badge>
@@ -349,20 +349,20 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
 
 function DetailSkeleton() {
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 sm:py-8 flex-1">
-      <Skeleton className="h-4 w-32 mb-6" />
+    <div className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 sm:py-8 flex-1 select-none">
+      <Skeleton className="h-6 w-32 mb-6" />
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-        <div className="md:col-span-5 flex flex-col items-center">
-          <Skeleton className="aspect-square w-full rounded-2xl" />
-          <Skeleton className="h-8 w-40 mt-4" />
-          <Skeleton className="h-5 w-24 mt-2" />
-          <Skeleton className="h-10 w-full mt-6 rounded-xl" />
+        <div className="md:col-span-5 flex flex-col items-center w-full">
+          <Skeleton className="aspect-square w-full rounded-xl" />
+          <Skeleton className="h-8 w-40 mt-5" />
+          <Skeleton className="h-5 w-24 mt-2.5" />
+          <Skeleton className="h-12 w-full mt-6" />
         </div>
-        <div className="md:col-span-7 flex flex-col gap-6">
-          <Skeleton className="h-20 w-full" />
-          <Skeleton className="h-56 w-full" />
+        <div className="md:col-span-7 flex flex-col gap-6 w-full">
           <Skeleton className="h-24 w-full" />
+          <Skeleton className="h-64 w-full" />
           <Skeleton className="h-28 w-full" />
+          <Skeleton className="h-32 w-full" />
         </div>
       </div>
     </div>

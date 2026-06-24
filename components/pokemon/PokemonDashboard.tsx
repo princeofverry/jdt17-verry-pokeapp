@@ -66,27 +66,26 @@ export default function PokemonDashboard() {
   return (
     <div className="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 sm:py-8 flex-1 flex flex-col">
       {/* Decorative Pokeball background indicator & Main Header */}
-      <div className="mb-8 text-center sm:text-left">
-        <h1 className="font-heading text-2xl font-black tracking-tight text-gray-900 sm:text-3xl flex items-center justify-center sm:justify-start gap-2">
-          {/* <Compass className="h-7 w-7 text-secondary" /> */}
-          <Image src={"/logo.png"} alt="logo" width={28} height={32} />
-          PokeDex
+      <div className="mb-8 text-center sm:text-left select-none">
+        <h1 className="font-heading text-3xl font-black tracking-tight text-black sm:text-4xl flex items-center justify-center sm:justify-start gap-2.5">
+          <Image src="/logo.png" alt="logo" width={32} height={36} className="object-contain" />
+          POKEDEX
         </h1>
-        <p className="mt-2 text-sm text-gray-600">
+        <p className="mt-2 text-sm font-bold text-gray-700">
           Search and explore Pokemon species, stats, types, and build your
           custom collection.
         </p>
       </div>
 
       {/* Search Input Section */}
-      <div className="relative mb-6 max-w-md w-full mx-auto sm:mx-0">
-        <Search className="absolute top-2.5 left-3 h-4 w-4 text-gray-400" />
+      <div className="relative mb-8 max-w-md w-full mx-auto sm:mx-0">
+        <Search className="absolute top-3 left-3 h-4 w-4 text-black z-10" />
         <Input
           type="text"
           placeholder="Search by name or ID (e.g. pikachu, 25)..."
           value={searchVal}
           onChange={handleSearchChange}
-          className="pl-9 h-9 rounded-lg border-gray-200 bg-white placeholder:text-gray-400 text-sm focus-visible:ring-secondary focus-visible:border-secondary"
+          className="pl-10 h-10 w-full font-extrabold"
         />
       </div>
 
@@ -98,12 +97,12 @@ export default function PokemonDashboard() {
             (_, idx) => (
               <div
                 key={idx}
-                className="rounded-xl border border-gray-100 bg-white p-4 h-[228px] flex flex-col justify-between"
+                className="border-4 border-black bg-white p-3 h-[228px] rounded-xl shadow-[4px_4px_0px_#000] flex flex-col justify-between"
               >
-                <Skeleton className="w-full h-[120px] rounded-lg bg-gray-50" />
+                <Skeleton className="w-full h-[120px]" />
                 <div className="mt-3 flex flex-col gap-2">
                   <Skeleton className="h-4 w-2/3" />
-                  <Skeleton className="h-5 w-1/2 rounded-md" />
+                  <Skeleton className="h-5 w-1/2" />
                 </div>
               </div>
             ),
@@ -116,21 +115,21 @@ export default function PokemonDashboard() {
             <PokemonCard pokemon={searchData} />
           </div>
         ) : isSearchError ? (
-          <div className="py-12 flex flex-col items-center justify-center text-center">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-50 text-red-500 mb-4">
+          <div className="py-12 flex flex-col items-center justify-center text-center select-none bg-white border-4 border-black shadow-[6px_6px_0px_#000] rounded-xl p-8 max-w-sm mx-auto my-6">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FF4D4D] text-white border-2 border-black mb-4 shadow-[2px_2px_0px_#000]">
               <AlertCircle className="h-6 w-6" />
             </div>
-            <h3 className="font-heading text-base font-bold text-gray-900">
+            <h3 className="font-heading text-lg font-black text-black">
               No Pokemon Found
             </h3>
-            <p className="mt-1 text-sm text-gray-600 max-w-xs">
+            <p className="mt-2 text-sm text-gray-700 font-bold max-w-xs">
               We couldn't find any Pokemon matching &ldquo;{debouncedQuery}
               &rdquo;. Check spelling or try an ID.
             </p>
           </div>
         ) : (
           <div className="py-12 flex flex-col items-center justify-center text-center">
-            <h3 className="font-heading text-base font-bold text-gray-900">
+            <h3 className="font-heading text-base font-black text-black">
               Type to Search
             </h3>
           </div>
@@ -138,10 +137,10 @@ export default function PokemonDashboard() {
       ) : isListError ? (
         // List Error State
         <div className="my-6">
-          <Alert variant="destructive">
-            <AlertCircle className="h-4 w-4" />
-            <AlertTitle>Error Loading Pokemons</AlertTitle>
-            <AlertDescription>
+          <Alert variant="destructive" className="border-4 border-black bg-[#FF4D4D] text-white shadow-[6px_6px_0px_#000]">
+            <AlertCircle className="h-4 w-4 text-white" />
+            <AlertTitle className="font-black">Error Loading Pokemons</AlertTitle>
+            <AlertDescription className="font-bold">
               {listError?.message ||
                 "Something went wrong while fetching data. Please try again."}
             </AlertDescription>
@@ -157,18 +156,18 @@ export default function PokemonDashboard() {
           </div>
 
           {/* Simple Clean Responsive Pagination */}
-          <div className="mt-8 mb-6 flex items-center justify-between border-t border-gray-100 pt-6">
+          <div className="mt-10 mb-6 flex items-center justify-between border-t-3 border-black pt-8 select-none">
             <Button
               variant="outline"
               size="sm"
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={!hasPrevious}
-              className="cursor-pointer font-medium"
+              className="cursor-pointer"
             >
               Previous
             </Button>
 
-            <span className="text-xs font-semibold text-gray-600">
+            <span className="text-xs font-black text-black border-2 border-black bg-white px-3 py-1.5 rounded-lg shadow-[2px_2px_0px_#000] select-none">
               Page {currentPage} of {totalPages || 1}
             </span>
 
@@ -177,7 +176,7 @@ export default function PokemonDashboard() {
               size="sm"
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={!hasNext}
-              className="cursor-pointer font-medium"
+              className="cursor-pointer"
             >
               Next
             </Button>
