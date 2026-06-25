@@ -7,16 +7,36 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { ArrowLeft, Sparkles, Scale, Ruler, CheckCircle, ShieldAlert, Award } from "lucide-react";
+import {
+  ArrowLeft,
+  Sparkles,
+  Scale,
+  Ruler,
+  CheckCircle,
+  ShieldAlert,
+  Award,
+} from "lucide-react";
 import { usePokemonDetail } from "@/hooks/usePokemonDetail";
 import { useCollection } from "@/hooks/useCollection";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { formatPokemonId, capitalize, getTypeStyles, getPokemonImage } from "./PokemonCard";
+import {
+  formatPokemonId,
+  capitalize,
+  getTypeStyles,
+  getPokemonImage,
+} from "./PokemonCard";
 
 import { use } from "react";
 
@@ -28,7 +48,13 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
   const { id } = use(params);
   const router = useRouter();
   const { data: pokemon, isLoading, error } = usePokemonDetail(id);
-  const { attemptCatch, savePokemon, isNicknameDuplicate, checkAndResetTickets, remainingTickets } = useCollection();
+  const {
+    attemptCatch,
+    savePokemon,
+    isNicknameDuplicate,
+    checkAndResetTickets,
+    remainingTickets,
+  } = useCollection();
 
   const [isCatching, setIsCatching] = useState(false);
   const [showNicknameModal, setShowNicknameModal] = useState(false);
@@ -45,10 +71,9 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
       .trim()
       .min(1, "Nickname is required")
       .max(20, "Nickname must be 20 characters or less")
-      .refine(
-        (val) => !isNicknameDuplicate(val),
-        { message: "This nickname is already in your collection!" }
-      ),
+      .refine((val) => !isNicknameDuplicate(val), {
+        message: "This nickname is already in your collection!",
+      }),
   });
 
   type NicknameFormValues = z.infer<typeof nicknameSchema>;
@@ -73,11 +98,17 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-red-50 text-red-500 mb-4">
           <ShieldAlert className="h-6 w-6" />
         </div>
-        <h3 className="font-heading text-lg font-bold text-gray-900">Failed to load Pokemon</h3>
+        <h3 className="font-heading text-lg font-bold text-gray-900">
+          Failed to load Pokemon
+        </h3>
         <p className="mt-1 text-sm text-gray-600">
           The Pokemon may not exist or network connectivity is unstable.
         </p>
-        <Button className="mt-6" variant="outline" onClick={() => router.push("/")}>
+        <Button
+          className="mt-6"
+          variant="outline"
+          onClick={() => router.push("/")}
+        >
           Back to Pokedex
         </Button>
       </div>
@@ -138,7 +169,10 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 sm:py-8 flex-1 select-none">
       {/* Back navigation */}
-      <Link href="/" className="inline-flex items-center gap-1.5 text-sm font-extrabold text-black hover:underline mb-6 group">
+      <Link
+        href="/"
+        className="inline-flex items-center gap-1.5 text-sm font-extrabold text-black hover:underline mb-6 group"
+      >
         <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
         Back to Pokedex
       </Link>
@@ -186,7 +220,9 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
             className="mt-6 w-full py-6 rounded-xl font-black text-sm bg-primary text-black border-3 border-black shadow-[4px_4px_0px_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[1px_1px_0px_#000] transition-all"
           >
             <Sparkles className="h-4 w-4 text-black" />
-            {isCatching ? "THROWING POKEBALL..." : `CATCH ${pokemon.name.toUpperCase()}`}
+            {isCatching
+              ? "THROWING POKEBALL..."
+              : `CATCH ${pokemon.name.toUpperCase()}`}
           </Button>
         </div>
 
@@ -201,21 +237,27 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
             <div className="grid grid-cols-3 gap-4 text-center divide-x-2 divide-black">
               <div className="flex flex-col items-center">
                 <Ruler className="h-4 w-4 text-black mb-1" />
-                <span className="text-[10px] font-black text-gray-500 uppercase">Height</span>
+                <span className="text-[10px] font-black text-gray-500 uppercase">
+                  Height
+                </span>
                 <span className="text-sm font-black text-black mt-0.5 font-mono">
                   {pokemon.height / 10} m
                 </span>
               </div>
               <div className="flex flex-col items-center pl-2">
                 <Scale className="h-4 w-4 text-black mb-1" />
-                <span className="text-[10px] font-black text-gray-500 uppercase">Weight</span>
+                <span className="text-[10px] font-black text-gray-500 uppercase">
+                  Weight
+                </span>
                 <span className="text-sm font-black text-black mt-0.5 font-mono">
                   {pokemon.weight / 10} kg
                 </span>
               </div>
               <div className="flex flex-col items-center pl-2">
                 <Sparkles className="h-4 w-4 text-black mb-1" />
-                <span className="text-[10px] font-black text-gray-500 uppercase">Base Exp</span>
+                <span className="text-[10px] font-black text-gray-500 uppercase">
+                  Base Exp
+                </span>
                 <span className="text-sm font-black text-black mt-0.5 font-mono">
                   {pokemon.base_experience || "N/A"}
                 </span>
@@ -230,19 +272,23 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
             </h2>
             <div className="flex flex-col gap-3.5">
               {pokemon.stats.map((s) => {
-                const label = statLabelMap[s.stat.name] || s.stat.name.toUpperCase();
+                const label =
+                  statLabelMap[s.stat.name] || s.stat.name.toUpperCase();
                 const max = statMaxMap[s.stat.name] || 200;
-                const percentage = Math.min(100, Math.round((s.base_stat / max) * 100));
+                const percentage = Math.min(
+                  100,
+                  Math.round((s.base_stat / max) * 100),
+                );
 
                 return (
-                  <div key={s.stat.name} className="grid grid-cols-12 gap-2 items-center">
-                    <span className="col-span-3 text-[10px] font-black text-black tracking-wider">
+                  <div key={s.stat.name} className="flex gap-2 items-center">
+                    <span className="w-10 text-[10px] font-black text-black tracking-wider">
                       {label}
                     </span>
-                    <span className="col-span-1.5 text-xs font-black text-black text-right font-mono pr-2">
+                    <span className="w-8 text-xs font-black text-black text-right font-mono pr-2">
                       {s.base_stat}
                     </span>
-                    <div className="col-span-7.5 h-4 w-full bg-white border-2 border-black rounded shadow-[1px_1px_0px_#000] overflow-hidden">
+                    <div className="flex-1 h-4 w-full bg-white border-2 border-black rounded shadow-[1px_1px_0px_#000] overflow-hidden">
                       <div
                         className="h-full bg-[#6BCB77] border-r-2 border-black transition-all duration-500"
                         style={{ width: `${percentage}%` }}
@@ -268,7 +314,9 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
                 >
                   {capitalize(a.ability.name)}
                   {a.is_hidden && (
-                    <span className="ml-1 text-[9px] font-bold text-gray-500 normal-case font-sans">(Hidden)</span>
+                    <span className="ml-1 text-[9px] font-bold text-gray-500 normal-case font-sans">
+                      (Hidden)
+                    </span>
                   )}
                 </Badge>
               ))}
@@ -293,7 +341,9 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
                 ))}
               </div>
             ) : (
-              <p className="text-xs text-gray-500 italic">No moves records found.</p>
+              <p className="text-xs text-gray-500 italic">
+                No moves records found.
+              </p>
             )}
           </div>
         </div>
@@ -308,13 +358,24 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
               Pokemon Caught!
             </DialogTitle>
             <DialogDescription className="text-gray-600 text-sm">
-              Congratulations! You caught a wild <span className="font-bold text-gray-900">{capitalize(pokemon.name)}</span>. Please assign a unique nickname to add it to your Pokedex collection.
+              Congratulations! You caught a wild{" "}
+              <span className="font-bold text-gray-900">
+                {capitalize(pokemon.name)}
+              </span>
+              . Please assign a unique nickname to add it to your Pokedex
+              collection.
             </DialogDescription>
           </DialogHeader>
 
-          <form onSubmit={handleSubmit(onSaveNickname)} className="space-y-4 py-2">
+          <form
+            onSubmit={handleSubmit(onSaveNickname)}
+            className="space-y-4 py-2"
+          >
             <div className="space-y-1">
-              <label htmlFor="nickname" className="text-xs font-bold text-gray-700">
+              <label
+                htmlFor="nickname"
+                className="text-xs font-bold text-gray-700"
+              >
                 Nickname
               </label>
               <Input
@@ -323,12 +384,16 @@ export default function PokemonDetailView({ params }: PokemonDetailViewProps) {
                 placeholder={`My ${capitalize(pokemon.name)}`}
                 {...register("nickname")}
                 className={`rounded-lg border bg-white ${
-                  errors.nickname ? "border-red-500 focus-visible:ring-red-400" : "border-gray-200 focus-visible:ring-secondary focus-visible:border-secondary"
+                  errors.nickname
+                    ? "border-red-500 focus-visible:ring-red-400"
+                    : "border-gray-200 focus-visible:ring-secondary focus-visible:border-secondary"
                 }`}
                 autoFocus
               />
               {errors.nickname && (
-                <p className="text-xs font-semibold text-red-500">{errors.nickname.message}</p>
+                <p className="text-xs font-semibold text-red-500">
+                  {errors.nickname.message}
+                </p>
               )}
             </div>
 
