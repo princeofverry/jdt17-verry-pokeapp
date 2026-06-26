@@ -19,7 +19,7 @@ export default function HomePage() {
             {Array.from({ length: 10 }).map((_, idx) => (
               <div
                 key={idx}
-                className="rounded-xl border border-gray-100 bg-white p-4 h-[228px] flex flex-col justify-between"
+                className="rounded-xl border-4 border-black bg-card p-4 h-[228px] flex flex-col justify-between shadow-[4px_4px_0px_#000]"
               >
                 <Skeleton className="w-full h-[30] rounded-lg" />
                 <div className="mt-3 flex flex-col gap-2">

@@ -67,11 +67,11 @@ export default function PokemonDashboard() {
     <div className="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 sm:py-8 flex-1 flex flex-col">
       {/* Decorative Pokeball background indicator & Main Header */}
       <div className="mb-8 text-center sm:text-left select-none">
-        <h1 className="font-heading text-3xl font-black tracking-tight text-black sm:text-4xl flex items-center justify-center sm:justify-start gap-2.5">
+        <h1 className="font-heading text-3xl font-black tracking-tight text-foreground sm:text-4xl flex items-center justify-center sm:justify-start gap-2.5">
           <Image src="/logo.png" alt="logo" width={32} height={36} className="object-contain" />
           POKEDEX
         </h1>
-        <p className="mt-2 text-sm font-bold text-gray-700">
+        <p className="mt-2 text-sm font-bold text-muted-foreground">
           Search and explore Pokemon species, stats, types, and build your
           custom collection.
         </p>
@@ -79,7 +79,7 @@ export default function PokemonDashboard() {
 
       {/* Search Input Section */}
       <div className="relative mb-8 max-w-md w-full mx-auto sm:mx-0">
-        <Search className="absolute top-3 left-3 h-4 w-4 text-black z-10" />
+        <Search className="absolute top-3 left-3 h-4 w-4 text-foreground z-10" />
         <Input
           type="text"
           placeholder="Search by name or ID (e.g. pikachu, 25)..."
@@ -97,7 +97,7 @@ export default function PokemonDashboard() {
             (_, idx) => (
               <div
                 key={idx}
-                className="border-4 border-black bg-white p-3 h-[228px] rounded-xl shadow-[4px_4px_0px_#000] flex flex-col justify-between"
+                className="border-4 border-black bg-card p-3 h-[228px] rounded-xl shadow-[4px_4px_0px_#000] flex flex-col justify-between"
               >
                 <Skeleton className="w-full h-[120px]" />
                 <div className="mt-3 flex flex-col gap-2">
@@ -115,21 +115,21 @@ export default function PokemonDashboard() {
             <PokemonCard pokemon={searchData} />
           </div>
         ) : isSearchError ? (
-          <div className="py-12 flex flex-col items-center justify-center text-center select-none bg-white border-4 border-black shadow-[6px_6px_0px_#000] rounded-xl p-8 max-w-sm mx-auto my-6">
+          <div className="py-12 flex flex-col items-center justify-center text-center select-none bg-card border-4 border-black shadow-[6px_6px_0px_#000] rounded-xl p-8 max-w-sm mx-auto my-6">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FF4D4D] text-white border-2 border-black mb-4 shadow-[2px_2px_0px_#000]">
               <AlertCircle className="h-6 w-6" />
             </div>
-            <h3 className="font-heading text-lg font-black text-black">
+            <h3 className="font-heading text-lg font-black text-foreground">
               No Pokemon Found
             </h3>
-            <p className="mt-2 text-sm text-gray-700 font-bold max-w-xs">
+            <p className="mt-2 text-sm text-muted-foreground font-bold max-w-xs">
               We couldn't find any Pokemon matching &ldquo;{debouncedQuery}
               &rdquo;. Check spelling or try an ID.
             </p>
           </div>
         ) : (
           <div className="py-12 flex flex-col items-center justify-center text-center">
-            <h3 className="font-heading text-base font-black text-black">
+            <h3 className="font-heading text-base font-black text-foreground">
               Type to Search
             </h3>
           </div>
@@ -167,7 +167,7 @@ export default function PokemonDashboard() {
               Previous
             </Button>
 
-            <span className="text-xs font-black text-black border-2 border-black bg-white px-3 py-1.5 rounded-lg shadow-[2px_2px_0px_#000] select-none">
+            <span className="text-xs font-black text-foreground border-2 border-black bg-card shadow-[2px_2px_0px_#000] px-3 py-1.5 rounded-lg select-none">
               Page {currentPage} of {totalPages || 1}
             </span>
 
@@ -185,13 +185,13 @@ export default function PokemonDashboard() {
       ) : (
         // Empty State
         <div className="py-12 flex flex-col items-center justify-center text-center">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-50 text-gray-400 mb-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted text-muted-foreground mb-4">
             <Compass className="h-6 w-6 animate-pulse" />
           </div>
-          <h3 className="font-heading text-base font-bold text-gray-900">
+          <h3 className="font-heading text-base font-bold text-foreground">
             No Pokemon Available
           </h3>
-          <p className="mt-1 text-sm text-gray-600">
+          <p className="mt-1 text-sm text-muted-foreground">
             No Pokemon species found. Please refresh or try again.
           </p>
         </div>

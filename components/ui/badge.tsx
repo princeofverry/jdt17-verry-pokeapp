@@ -13,7 +13,7 @@ const badgeVariants = cva(
           "bg-secondary text-white",
         destructive:
           "bg-destructive text-white",
-        outline: "bg-white text-black",
+        outline: "bg-card text-foreground",
         flat: "bg-accent text-black",
       },
     },

@@ -11,14 +11,14 @@ const buttonVariants = cva(
       variant: {
         default: "bg-primary text-black hover:bg-primary",
         outline:
-          "bg-white text-black hover:bg-white",
+          "bg-card text-foreground hover:bg-card",
         secondary:
           "bg-secondary text-white hover:bg-secondary",
         ghost:
-          "border-transparent shadow-none hover:bg-black/5 hover:-translate-x-0 hover:-translate-y-0 hover:shadow-none active:translate-x-0 active:translate-y-0 active:shadow-none",
+          "border-transparent shadow-none hover:bg-foreground/5 hover:-translate-x-0 hover:-translate-y-0 hover:shadow-none active:translate-x-0 active:translate-y-0 active:shadow-none",
         destructive:
           "bg-destructive text-white hover:bg-destructive",
-        link: "border-transparent shadow-none bg-transparent text-black hover:underline hover:-translate-x-0 hover:-translate-y-0 hover:shadow-none active:translate-x-0 active:translate-y-0 active:shadow-none",
+        link: "border-transparent shadow-none bg-transparent text-foreground hover:underline hover:-translate-x-0 hover:-translate-y-0 hover:shadow-none active:translate-x-0 active:translate-y-0 active:shadow-none",
       },
       size: {
         default:
