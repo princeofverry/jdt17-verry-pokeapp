@@ -89,9 +89,9 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
 
   return (
     <Link href={`/pokemon/${pokemon.id}`} className="group block outline-none">
-      <Card className={`h-full overflow-hidden border-4 bg-white shadow-[4px_4px_0px_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[7px_7px_0px_#000] transition-all duration-200 ${borderColorClass}`}>
+      <Card className={`h-full overflow-hidden border-4 bg-card shadow-[4px_4px_0px_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[7px_7px_0px_#000] transition-all duration-200 ${borderColorClass}`}>
         <CardContent className="flex flex-col items-center p-0">
-          <div className="relative flex aspect-square w-full items-center justify-center bg-gray-100 p-4 border-b-3 border-black">
+          <div className="relative flex aspect-square w-full items-center justify-center bg-muted p-4 border-b-3 border-black">
             {artwork && (
               <Image
                 src={artwork}
@@ -103,13 +103,13 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
                 unoptimized
               />
             )}
-            <span className="absolute top-2 right-2 text-[9px] font-black font-mono text-black border-2 border-black bg-white px-1.5 py-0.5 rounded shadow-[1px_1px_0px_#000] select-none">
+            <span className="absolute top-2 right-2 text-[9px] font-black font-mono text-foreground border-2 border-black bg-card px-1.5 py-0.5 rounded shadow-[1px_1px_0px_#000] select-none">
               {formatPokemonId(pokemon.id)}
             </span>
           </div>
 
-          <div className="p-3 w-full text-center sm:text-left bg-white">
-            <h3 className="font-heading text-sm font-black text-black group-hover:text-secondary transition-colors truncate">
+          <div className="p-3 w-full text-center sm:text-left bg-card">
+            <h3 className="font-heading text-sm font-black text-foreground group-hover:text-secondary transition-colors truncate">
               {capitalize(pokemon.name)}
             </h3>
 

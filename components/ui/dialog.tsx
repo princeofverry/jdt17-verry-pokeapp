@@ -37,7 +37,7 @@ function DialogContent({
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          "bg-white text-black data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-48 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-48 border-4 border-black fixed top-1/2 left-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-6 shadow-[8px_8px_0px_0px_#000] duration-200",
+          "bg-card text-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:zoom-in-95 data-[state=closed]:zoom-out-95 data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-48 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-48 border-4 border-black fixed top-1/2 left-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl p-6 shadow-[8px_8px_0px_0px_#000] duration-200",
           className
         )}
         {...props}
@@ -85,7 +85,7 @@ function DialogTitle({
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn("text-xl font-black leading-none tracking-tight text-black", className)}
+      className={cn("text-xl font-black leading-none tracking-tight text-foreground", className)}
       {...props}
     />
   )

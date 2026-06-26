@@ -13,7 +13,7 @@ export default function MyPokemonPage() {
           <Skeleton className="h-6 w-48 mb-8" />
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {Array.from({ length: 5 }).map((_, idx) => (
-              <div key={idx} className="rounded-xl border border-gray-100 bg-white p-4 h-[256px] flex flex-col justify-between">
+              <div key={idx} className="rounded-xl border-4 border-black bg-card p-4 h-[256px] flex flex-col justify-between shadow-[4px_4px_0px_#000]">
                 <Skeleton className="w-full h-[120px] rounded-lg" />
                 <div className="mt-3 flex flex-col gap-2">
                   <Skeleton className="h-4 w-2/3" />

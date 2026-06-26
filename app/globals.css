@@ -49,7 +49,7 @@
 }
 
 :root {
-  --background: #FFFFFF;
+  --background: #F3F4F6;
   --foreground: #000000;
   --card: #FFFFFF;
   --card-foreground: #000000;
@@ -59,8 +59,8 @@
   --primary-foreground: #000000;
   --secondary: #FF4D4D;
   --secondary-foreground: #FFFFFF;
-  --muted: #F3F4F6;
-  --muted-foreground: #000000;
+  --muted: #E5E7EB;
+  --muted-foreground: #4B5563;
   --accent: #6ECBF5;
   --accent-foreground: #000000;
   --destructive: #FF4D4D;
@@ -83,33 +83,42 @@
   --sidebar-ring: #000000;
 }
 
-.dark {
-  --background: #FFFFFF;
-  --foreground: #000000;
-  --card: #FFFFFF;
-  --card-foreground: #000000;
-  --popover: #FFFFFF;
-  --popover-foreground: #000000;
-  --primary: #FFD93D;
+html.dark {
+  --background: #121214;
+  --foreground: #F3F4F6;
+  --card: #1E1E22;
+  --card-foreground: #FFFFFF;
+  --popover: #1E1E22;
+  --popover-foreground: #FFFFFF;
+  --primary: #FFE17D;
   --primary-foreground: #000000;
-  --secondary: #FF4D4D;
+  --secondary: #FF6B6B;
+  --sidebar-border: #3A3A42;
   --secondary-foreground: #FFFFFF;
-  --muted: #F3F4F6;
-  --muted-foreground: #000000;
-  --accent: #6ECBF5;
+  --muted: #2A2A30;
+  --muted-foreground: #9CA3AF;
+  --accent: #81D4FA;
   --accent-foreground: #000000;
-  --destructive: #FF4D4D;
-  --border: #000000;
-  --input: #FFFFFF;
-  --ring: #000000;
-  --sidebar: #FFFFFF;
-  --sidebar-foreground: #000000;
-  --sidebar-primary: #FFD93D;
+  --destructive: #FF6B6B;
+  --border: #3A3A42;
+  --input: #2A2A30;
+  --ring: #FFE17D;
+  --sidebar: #1E1E22;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #FFE17D;
   --sidebar-primary-foreground: #000000;
-  --sidebar-accent: #F3F4F6;
-  --sidebar-accent-foreground: #000000;
-  --sidebar-border: #000000;
-  --sidebar-ring: #000000;
+  --sidebar-accent: #2A2A30;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-ring: #FFE17D;
+}
+
+html.dark .border-black,
+html.dark [class*="border-black"] {
+  border-color: var(--border);
+}
+html.dark .outline-black,
+html.dark [class*="outline-black"] {
+  outline-color: var(--border);
 }
 
 @layer base {
@@ -117,7 +126,7 @@
     @apply border-black outline-black;
   }
   body {
-    @apply bg-[#F3F4F6] text-black font-sans antialiased;
+    @apply bg-background text-foreground font-sans antialiased;
   }
   html {
     @apply font-sans;
@@ -138,4 +147,18 @@
 
 @utility rotate-y-180 {
   transform: rotateY(180deg);
+}
+
+@keyframes pokeball-shake {
+  0% { transform: rotate(0deg); }
+  5% { transform: rotate(-15deg); }
+  10% { transform: rotate(15deg); }
+  15% { transform: rotate(-10deg); }
+  18% { transform: rotate(10deg); }
+  20% { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@utility animate-pokeball-shake {
+  animation: pokeball-shake 1.2s ease-in-out infinite;
 }
